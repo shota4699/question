@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content>
-
+  <h3>
+    人数を入力してください
+  </h3>
+  <ion-input type="number" [value]="number"></ion-input>
+  <ion-button id="button" expand ="block" color="light" (click)="dec()">決定</ion-button>
+  <ng-container *ngFor="let a of studentlist">
+    <ion-item>
+      <ion-label color="primary" position="floating">Student Name</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  </ng-container>
 </ion-content>

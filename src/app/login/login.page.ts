@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
   }
   ngOnDestroy() {
     if(this.status != 200){
-      this.router.navigate(['/tabs/tab1']);
+      this.router.navigate(['/home']);
     }
   }
 
@@ -56,7 +56,7 @@ export class LoginPage implements OnInit {
         this.returnObj = res;
         localStorage.id = this.postObj["id"];
         localStorage.password = this.postObj["password"];
-        this.router.navigate(['/tabs/tab1']);
+        this.router.navigate(['/home']);
       },
       error => {
         console.log("error: " + error);

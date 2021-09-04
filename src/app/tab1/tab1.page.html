@@ -1,24 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-button id="button" expand ="block" color="light">new</ion-button>
-    <ion-button id="button" expand ="block" color="light">delete</ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="button-area ion-padding">
-    <label for="file-button" id="file-button-label">日誌の写真を選択</label>
     <input type="file" accept="image/*" id="file-button" (change)="loadPicture($event)"/>
   </div>
   <div *ngIf="imageFlag">
     <ion-img [src]="image" id="image"></ion-img>
   </div>
-  <ng-container *ngFor="let a of articleList">
-    <ion-card button="true" color="{{a.category_color}}-{{a.category_level}}">
-      <ion-card-header routerLink="/article/2/{{a.article_id}}/{{a.title}}/{{a.text}}/{{a.id}}">
-        <ion-card-subtitle>[{{a.a}}] {{a.name}}さんの投稿<br>{{a.name}}</ion-card-subtitle>
-        <ion-card-title>{{a.title}}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  </ng-container>
+
 </ion-content>

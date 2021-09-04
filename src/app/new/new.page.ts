@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewPage implements OnInit {
 
-  constructor() { }
+  constructor() { 
 
+  }
+  number: number = 0;
+  studentlist: any[]=[]
   ngOnInit() {
   }
-
+  dec = () =>{
+    console.log(this.number)
+    this.studentlist = []
+    for(let i: any = 0; i < this.number; i++){
+      this.studentlist.push({"name": ""})
+      console.log(i)
+    }
+    console.log(this.studentlist)
+  }
 }

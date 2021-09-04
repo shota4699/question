@@ -36,9 +36,9 @@ export class HomePage implements OnInit {
       this.getList();
     }, 1500);
   }
-  /*newnavigate = () =>{
+  newnavigate = () =>{
     this.router.navigate(['/new']);
-  }*/
+  }
 
   getList = () => {
     this.postObj["id"] = localStorage.id;

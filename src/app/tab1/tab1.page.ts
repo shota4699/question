@@ -8,21 +8,14 @@ import { GlobalService } from '../global.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
+  imageFlag: Boolean = false;
+  image: any;
+  imgHeight: number = 600;
   // API用
   postObj: any = {};
   returnObj: any = {};
   articleObj: any = {};
   objWord: any;
-
-  articleList: any[] = [{
-    "a": 120,
-    "name": "kawakami"
-  },{
-    "a": 120,
-    "name": "kawakami"
-  }];
-
-  interval: any;
 
   constructor(
     private router: Router,
@@ -31,14 +24,42 @@ export class Tab1Page implements OnInit {
 
   // 自動ログイン管理, 記事取得
   ngOnInit(){
-    this.interval = setInterval(() => {
+    /*this.interval = setInterval(() => {
       // Function
       this.getList();
-    }, 1500);
+    }, 1500);*/
   }
   /*newnavigate = () =>{
     this.router.navigate(['/new']);
   }*/
+
+  loadPicture = (e: any) => {
+    console.log(e);
+    var file: any = e.srcElement.files[0];
+    var fileReader: any = new FileReader();
+    var img = new Image();
+    fileReader.onloadend = () => {
+      img.onload = () => {
+        // 画像軽量化
+        console.log('Image Processing');
+        const imgType = img.src.substring(5, img.src.indexOf(';'));
+        const imgWidth = img.width * (this.imgHeight / img.height);
+        const canvas = document.createElement('canvas');
+        canvas.width = imgWidth;
+        canvas.height = this.imgHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, imgWidth, this.imgHeight);
+        this.image = canvas.toDataURL(imgType);
+        console.log(this.image);
+      }
+      // 画像ファイルを base64 文字列に変換します
+      img.src = fileReader.result;
+      this.imageFlag = true;
+    };
+    if (file) {
+      fileReader.readAsDataURL(file);
+    }
+  }
 
   getList = () => {
     this.postObj["id"] = localStorage.id;
@@ -49,31 +70,6 @@ export class Tab1Page implements OnInit {
       res => {
         console.log(res);
         this.articleObj = res;
-        this.articleList = [];
-        for(let i: any = 0; i < this.articleObj['article_num']; i++){
-          let n = i + 1;
-          this.objWord = 'article' + n;
-
-          // 数字→英語の変換
-          if(this.articleObj['article_list'][this.objWord]['category_level'] == 1){
-            this.articleObj['article_list'][this.objWord]['category_level'] = 'one';
-          }
-          else if(this.articleObj['article_list'][this.objWord]['category_level'] == 2){
-            this.articleObj['article_list'][this.objWord]['category_level'] = 'two';
-          }
-          else if(this.articleObj['article_list'][this.objWord]['category_level'] == 3){
-            this.articleObj['article_list'][this.objWord]['category_level'] = 'three';
-          }
-          else if(this.articleObj['article_list'][this.objWord]['category_level'] == 4){
-            this.articleObj['article_list'][this.objWord]['category_level'] = 'four';
-          }
-          else if(this.articleObj['article_list'][this.objWord]['category_level'] == 5){
-            this.articleObj['article_list'][this.objWord]['category_level'] = 'five';
-          }
-
-          this.articleList.push(this.articleObj['article_list'][this.objWord]);
-        }
-        console.log(this.articleList);
       },
       error => console.error(error)
     );
