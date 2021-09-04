@@ -1,17 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      出席入力
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="abs">
+      <ion-label>欠席</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="beh">
+      <ion-label>遅刻</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="att">
+      <ion-label>出席</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-button id="dec" expand ="block" color="light">決定</ion-button>
 </ion-content>

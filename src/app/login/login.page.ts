@@ -32,12 +32,12 @@ export class LoginPage implements OnInit {
   }
   ngOnDestroy() {
     if(this.status != 200){
-      this.router.navigate(['/home']);
+      this.router.navigate(['/tabs/tab1']);
     }
   }
 
   navigate = () => {
-    // this.postObj['id'] = this.id;
+    this.postObj['user'] = this.id;
     this.postObj['password'] = this.password;
 
     this.login();
@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
 
   login = () => {
     const body = this.postObj;
-    const url = 'https://7a05-116-94-251-206.ngrok.io/todo'
+    const url = 'https://cc10-220-98-197-137.ngrok.io/signin'
 
     this.gs.http(url, body).subscribe(
       res => {
@@ -56,15 +56,11 @@ export class LoginPage implements OnInit {
         this.returnObj = res;
         localStorage.id = this.postObj["id"];
         localStorage.password = this.postObj["password"];
-        localStorage.token = this.returnObj["token"];
-        console.log('Stored item!');
-        console.log(localStorage.token);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/tabs/tab1']);
       },
       error => {
         console.log("error: " + error);
       }
     );
   }
-
 }
